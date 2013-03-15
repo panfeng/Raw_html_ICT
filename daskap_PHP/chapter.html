@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+        <title>
+            Chapter <?php 
+
+            $nchapter = $_GET["chapter_Num"];
+            if(is_numeric($nchapter) && $nchapter<=33 && $nchapter>=1 ){
+                echo $nchapter;
+                }else{
+                Header("Location:index.html?msg=Input a number between 1 and 33! You just inputed -- ".$nchapter);
+                }
+
+                ?> Analysis 
+            </title>
+        <style type="text/css">
+        h1 {color:red;text-align:center;font-family:arial;}
+        div#img {float:left;margin:10px 20px 10px 40px;}
+        table {float:left;margin:10px 20px 10px 40px}
+        </style>
+        </head>
+
+<body>
+
+<?php
+echo "<h1>Analysis of Chapter ".$nchapter."</h1><br />";
+
+# read json to the variable
+$filepath="./chapter1/term_Json.json";
+$content= file_get_contents($filepath);
+# echo strlen($content);
+# print_r($content);
+
+# var_dump(json_decode($json));
+# var_dump(json_decode($json,true));
+
+# var_dump(json_decode($content));
+
+# var_dump(json_decode($content, true));
+echo "<br />";
+echo "<br />";
+echo "<br />";
+
+# $json = array(json_decode($content)));
+
+echo "<pre>";
+# print_r(json_decode($content, true));
+echo "</pre>";
+
+$obj = json_decode($content);
+$termName = $obj->termName;
+$termNum = $obj->termNum;
+
+
+?>
+<table id="table" border="1">
+<tr>
+  <th>Term</th>
+  <th>Frequency</th>
+</tr>
+<?php
+for($i=0; $i<count($termNum); $i++){
+echo "<tr>"."<td>".$termName[$i]."</td>"."<td>".$termNum[$i]."</td>"."</tr>";
+}
+?>
+
+</table>
+<?php
+echo "<div id='img'><img src='./chapter1/Term_Freq1.jpeg'></div>";
+?>
+
+</body>
+</html>
